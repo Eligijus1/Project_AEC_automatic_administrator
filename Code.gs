@@ -21,6 +21,7 @@ function registerHoursToNfqJira() {
 
 /**
  * Register task about daily reported issues.
+ * 
  */
 function registerTaskAboutDailyReportedIssues() {
   let description = "";
