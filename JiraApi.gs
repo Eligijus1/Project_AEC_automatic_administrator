@@ -40,6 +40,37 @@ function getJiraApiAtlanticTodayWorkLogIds() {
 /**
  * From Atlantic JIRA API extract today WorkLog ids.
  */
+function getJiraApiAtlanticWorkLogIds(dayStartDateTime) {
+  let userProperties = PropertiesService.getUserProperties();
+  let dayStartUnixFormat = dayStartDateTime.getTime().toString();
+  let encCred = Utilities.base64Encode(userProperties.getProperty('JIRA_ATLANTIC_USER') + ':' + userProperties.getProperty('JIRA_ATLANTIC_PASSWORD'));
+  let url = userProperties.getProperty('JIRA_ATLANTIC_HOST') + "/rest/api/3/worklog/updated?since=" + dayStartUnixFormat;
+  let headers = { "Authorization": "Basic " + encCred };
+
+  let options = {
+    "method": "GET",
+    "contentType": "application/json",
+    "headers": headers
+  };
+
+  let response = UrlFetchApp.fetch(url, options);
+  let parsedResponse = JSON.parse(response);
+  //Logger.log(parsedResponse.values);
+
+  let worklogIds = [];
+
+  if (parsedResponse.values.length > 0) {
+    parsedResponse.values.forEach(function (value) {
+      worklogIds.push(value.worklogId.toString());
+    });
+  }
+
+  return worklogIds
+}
+
+/**
+ * From Atlantic JIRA API extract today WorkLog ids.
+ */
 function getJiraApiAtlanticYesterdayWorkLogIds() {
   let userProperties = PropertiesService.getUserProperties();
   let MILLIS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -191,7 +222,7 @@ function getJiraApiAtlanticTotalWorkHoursByWorkLogIdsAndAuthorEmail(atlanticToda
 /**
  * Create subtask.
  */
-function jiraApiCreateSubtask(projectKey, parentKey, summary, description, issueTypeId) {
+function jiraApiAtlanticCreateSubtask(projectKey, parentKey, summary, description, issueTypeId) {
   let userProperties = PropertiesService.getUserProperties();
   let encCred = Utilities.base64Encode(userProperties.getProperty('JIRA_ATLANTIC_USER') + ':' + userProperties.getProperty('JIRA_ATLANTIC_PASSWORD'));
   let url = userProperties.getProperty('JIRA_ATLANTIC_HOST') + "/rest/api/2/issue";
@@ -231,20 +262,10 @@ function jiraApiCreateSubtask(projectKey, parentKey, summary, description, issue
   let response = UrlFetchApp.fetch(url, options);
   let parsedResponse = JSON.parse(response);
 
-  console.info("parsedResponse: ", parsedResponse);
+  // Write result information:
+  //console.info("Case URL: ", "https://atlanticexp.atlassian.net/browse/" + parsedResponse.key);
+
+  return "https://atlanticexp.atlassian.net/browse/" + parsedResponse.key;
 }
 
-// https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
-/*
-curl --request POST \
---url 'https://xxx.atlassian.net/rest/api/3/issue' \
---user 'xxxxx:xxxxx' \
---header 'Accept: application/json' \
---header 'Content-Type: application/json' \
---data '{
-"update": {},
-"fields": {
-"summary":"TEST SUMMARY","issuetype":{"id":"10001"},"project":{"id":"10000"}
-}
-}'
-*/
+

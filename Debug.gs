@@ -1,4 +1,44 @@
 function debug() {
+  let atlanticTodayWorkLogIds = getJiraApiAtlanticTodayWorkLogIds();
+  Logger.log(atlanticTodayWorkLogIds);
+
+  /*
+  let userProperties = PropertiesService.getUserProperties();
+  let dubaiLiveCookies = apiAecErpLogin(userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_URL'), userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_USER1'), userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_USER1_PASS'));
+  let aecErpProblemsReportTaskGenerator = new AecErpProblemsReportTaskGenerator();
+  console.info(aecErpProblemsReportTaskGenerator.apiAecErpGetReport(dubaiLiveCookies, userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_URL'), 'checkInvoicesOfTypePaymentWithPositiveDueAmount', "34) Found invoices of type Payment with positive due amount."));
+  */
+  /*
+  let userProperties = PropertiesService.getUserProperties();
+  let atlanticLiveCookies = apiAecErpLogin(userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_URL'), userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_USER1'), userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_USER1_PASS'));
+  let problemsResponse = apiAecErpCallProblemsCheckerCommand(userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_URL'), atlanticLiveCookies, 'checkForKnownProblems');
+  console.info(problemsResponse.response.data);
+  */
+
+  /*
+  let aecErpProblemsReportTaskGenerator = new AecErpProblemsReportTaskGenerator(8,9);
+  aecErpProblemsReportTaskGenerator.myFunction();
+  */
+
+  // Atlantic: 13) There are some payments where 'ammount' is less than 'total amount paid.
+  /*
+  let userProperties = PropertiesService.getUserProperties();
+  let atlanticLiveCookies = apiAecErpLogin(userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_URL'), userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_USER1'), userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_USER1_PASS'));
+  let problemsResponse = apiAecErpCallProblemsCheckerCommand(userProperties.getProperty('SERVER_ATLANTIC_LIVE_ERP_URL'), atlanticLiveCookies, 'checkForInvalidPaymentAmount');
+  console.info(problemsResponse.response);
+  */
+
+  /*
+  // Dubai: 13) There are some payments where 'ammount' is less than 'total amount paid.
+  let userProperties = PropertiesService.getUserProperties();
+  let dubaiLiveCookies = apiAecErpLogin(userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_URL'), userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_USER1'), userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_USER1_PASS'));
+  let problemsResponse = apiAecErpCallProblemsCheckerCommand(userProperties.getProperty('SERVER_DUBAI_LIVE_ERP_URL'), dubaiLiveCookies, 'checkForInvalidPaymentAmount');
+  console.info(problemsResponse.response.data.length);
+
+    if (problemsResponse.response.data.length > 0) {
+    }
+  */
+  
   /*
   let description = "";
   description += "{color:#ff5630}*Atlantic:*{color}";
